@@ -1,5 +1,5 @@
-# go-expr_rule
-expr engine json 
+# 设计参考 Nginx Lua扩展模块 
+    [ ](https://frxcat.fun/middleware/Nginx/Nginx_Lua_Expansion_module/#ngx-exec)
 
 ## 行业解决方案
     开源库：govaluate， expr , gengine（B站开源），goja( js脚本 ) , Lua脚本
