@@ -16,20 +16,20 @@
 "Filter": [
     {
       "Id": "1",
-      "When": "Req.Action in ['act_user_join','act_meet_create']",
+      "When": "Req.Action() in ['act_user_join','act_meet_create']",
       "Name": " 需要的用户动作"
     }
   ],
   "Action": [
     {
       "Id": "2",
-      "When": "Req.City in ['云南','西藏',\" ttt \"]",
+      "When": "Req.Get( 'City' ) in ['云南','西藏',\" ttt \"]",
       "Then": "Rsp.Write('doSetRedisOk','{\"name\":33333}')",
       "Name": " 需要的 用户动作",
       "Action": [
         {
           "Id": "21",
-          "When": "Req.City in ['云南','西藏',\" ttt \"]",
+          "When": "Req.Get( 'City' )  in ['云南','西藏',\" ttt \"]",
       	  "Then": " Req.Get('yy') + Rsp.Write( '' , '{\"name\":22222}')",
           "Name": " 需要的 21"
         }
@@ -37,7 +37,7 @@
     },
     {
       "Id": "3",
-      "When": "Req.City in ['云南','西藏'] ",
+      "When": "Req.Get( 'City' )  in ['云南','西藏'] ",
       "Then": "Req.Get2('yy') + Rsp.Write('doSetRedis','{\"name\":999999}')",
       "Name": " 需要的 3 动作"
     }
