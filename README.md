@@ -77,26 +77,35 @@ expr engine json
 
 ```
 
-## 策略的设计
-    策略设计：我们参考的是 设计模式的 责任链设计模式( 由七彩石管理 ) 。
-    意图：避免请求发送者与接收者耦合在一起，让多个对象都有可能接收请求，将这些对象连接成一条链，并且沿着这条链传递请求，直到有对象处理它为止。
-    主要解决：职责链上的处理者负责处理请求，客户只需要将请求发送到职责链上即可，无须关心请求的处理细节和请求的传递，所以职责链将请求的发送者和请求的处理者解耦了
-    优点： 1、降低耦合度。它将请求的发送者和接收者解耦。 2、简化了对象。使得对象不需要知道链的结构。 3、增强给对象指派职责的灵活性。通过改变链内的成员或者调动它们的次序，允许动态地新增或者删除责任。 4、增加新的请求处理类很方便。
-    缺点： 1、不能保证请求一定被接收。 2、系统性能将受到一定影响。 3、可能不容易观察运行时的特征，有碍于除错。
-    使用场景： 1、有多个对象可以处理同一个请求，具体哪个对象处理该请求由运行时刻自动确定。 2、在不明确指定接收者的情况下，向多个对象中的一个提交一个请求。 3、可动态指定一组对象处理请求
+## 服务变量定义 
+    Sys 系统插件入口 
+    Req 业务自定义请求
+    Rsp 业务自定义响应
+    Ctx 业务请求上下文 
 
-## 后记
-    比较了govaluate、gengine、gorule,为啥要选择 govaluate 这个最简单的引擎，
-    相比 gorule、gengine，govaluate除了支持in操作、还支持正则表达式，而且表达式也不需要转换成DRL 
-        支持string类型的 ==操作
-        支持in操作
-        支持计算逻辑表达式和算数表达式
-        支持正则
-        支持自定义结构体(PB)参数
-         gengine 不支持三级以上调用
-    性能对比：
-        gengine： 单核压测 1000次，耗时 6.6秒
-        govaluate: 单核压测 1000次，耗时 3.6毫秒
-        性能差距: 快500倍的性能差距了。
+## 上下文插件(Ctx) 
+    Ctx.RuleId                策略编号
+    Ctx.SetGlobal( 'GlbXxx' ) 设置全局变量 ,必须Glb开头 
+    Ctx.SetLocal ( 'VarXxx' ) 设置局部变量 ,必须Var开头  
+    Ctx.Exit()                退出程序执行 
+    Ctx.SubCancel()           子策略取消 
+    Ctx.Return()              当前策略返回
+    Ctx.DoSubRule( 'xxx')     执行子策略
+    Ctx.Log('')               打印日志   
+    Ctx.Get(key interface{}) interface{}  对接 Ctx.Value(key interface{}) interface{}
 
-## 最后
+## 系统插件
+    Sys.Load  (  'xxx' )      加载自定义插件 
+    Sys.Import( 'VarPlgXxx', 'xxx' ) 引入插件  
+    Sys.Sleep( 10 )          sleep函数 10毫秒   
+
+## 业务请求  Req, Rsp，业务自定义，可以是 http, pb , json,image 等  
+    Req.Action()                           需要实现接口 
+    Req.Get( path ) Interface{}            需要实现接口
+    Req.Set( path, val interface{} ) bool  需要实现接口 
+
+    Rsp.Write(args ...interface{}) int     需要实现接口 
+
+## 业务自定义私有插件 
+    Sys.Load( 'PriXxx' )        插件名称以 Pri开头  
+    
