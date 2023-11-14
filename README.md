@@ -23,13 +23,13 @@ expr engine json
   "Action": [
     {
       "Id": "2",
-      "When": "Req.City in ['云南','西藏',\" ttt \"]",
+      "When": "Req.City in ['22','33',\" ttt \"]",
       "Then": "Rsp.Write('doSetRedisOk','{\"name\":33333}')",
       "Name": " 需要的 用户动作",
       "Action": [
         {
           "Id": "21",
-          "When": "Req.City in ['云南','西藏',\" ttt \"]",
+          "When": "Req.City in ['112','333',\" ttt \"]",
       	  "Then": " Req.Get('yy') + Rsp.Write( '' , '{\"name\":22222}')",
           "Name": " 需要的 21"
         }
@@ -37,7 +37,7 @@ expr engine json
     },
     {
       "Id": "3",
-      "When": "Req.City in ['云南','西藏'] ",
+      "When": "Req.City in ['222','444'] ",
       "Then": "Req.Get2('yy') + Rsp.Write('doSetRedis','{\"name\":999999}')",
       "Name": " 需要的 3 动作"
     }
@@ -56,7 +56,7 @@ expr engine json
   "Action": [
     {
       "Id": "2",
-      "When": "Req.City in ['云南','西藏','ttt'']",
+      "When": "Req.City in ['222','2111','ttt'']",
       "Then": "Rsp.Write('doSetRedis','{\"name\":555}')",
       "Name": " 需要的 用户动作"
     },
