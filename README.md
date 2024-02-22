@@ -70,7 +70,14 @@
       "Id": "4",
       "When": "true",
       "Then": "Req.Get2( Req.Get('yy11')  )  ",
-      "Name": " 需要的 用户动作"
+      "Name": " 需要的 用户动作",
+      "ForEach": {
+        "Items": "VarAaray",
+        "When": "true",
+        "ThenList": [
+          "Rsp.Write( k , v  ) "
+        ]
+      }
     }
   ]
 }
